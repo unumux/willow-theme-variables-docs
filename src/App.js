@@ -95,7 +95,11 @@ class App extends Component {
             ...item,
             deltaE: color.deltaE(color.rgb2lab(color.hexToRgb(item.value)), labColor1)
         }
-      }).sort((a, b) => a.deltaE - b.deltaE);
+      }).sort((a, b) => {
+        const adjustedDeltaA = a.deltaE - (a.filename.indexOf("theme-specific") === 0 ? 1 : 0);
+        const adjustedDeltaB = b.deltaE - (b.filename.indexOf("theme-specific") === 0 ? 1 : 0);
+        return adjustedDeltaA - adjustedDeltaB;
+      });
 
       const closestColor = sortedColors[0];
 
