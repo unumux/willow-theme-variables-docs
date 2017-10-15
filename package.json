@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://unumux.github.io/willow-theme-variables-docs",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -23,6 +24,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "colorlab": "signalwerk/colorlab#master",
+    "gh-pages": "^1.0.0",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-postcss": "^7.0.0",
@@ -34,7 +36,7 @@
     "postcss-scss": "^1.0.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-scripts": "1.0.14",
+    "react-scripts": "^1.0.14",
     "rimraf": "^2.6.2",
     "styled-components": "^2.2.1",
     "willow": "^0.0.1"

@@ -5,6 +5,8 @@ import * as color from "./util/color"
 
 import {Main} from "./Main";
 import {Toolbar} from "./Toolbar";
+import {Modal} from "./Modal";
+import {ClosestColorModal} from "./ClosestColorModal";
 
 import data from "./data/theme-coloniallife-default.json";
 
@@ -65,12 +67,16 @@ class App extends Component {
     super(props);
 
     this.state = {
-        selectedFile: "View All"
+        selectedFile: "View All",
+        modalShow: false,
+        modalChildren: null
     };
 
     this.onFileChange = this.onFileChange.bind(this);
     this.findNearestSpacing = this.findNearestSpacing.bind(this);
     this.findNearestColor = this.findNearestColor.bind(this);
+    this.dismissModal = this.dismissModal.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
 
   onFileChange(e) {
@@ -80,7 +86,8 @@ class App extends Component {
   }
 
   findNearestColor() {
-      const hexColor = prompt("Enter a hex color");
+      let hexColor = prompt("Enter a hex color");
+      hexColor = hexColor.indexOf("#") === 0 ? hexColor : "#" + hexColor;
       const labColor1 = color.rgb2lab(color.hexToRgb(hexColor));
       
       const sortedColors = this.colors.map((item) => {
@@ -97,10 +104,22 @@ class App extends Component {
               selectedFile: closestColor.filename
           }
       }, () => {
-        setTimeout(() => {
-            alert(`Closest color variable is $${closestColor.key} with a value of ${closestColor.value}. It has a difference of ${closestColor.deltaE}, which is ${color.deltaEText(closestColor.deltaE)}.`)
-        }, 10);
+          this.showModal(<ClosestColorModal closestColor={closestColor} enteredColor={hexColor} />);
       });
+  }
+
+  showModal(children) {
+    this.setState({
+        modalShow: true,
+        modalChildren: children
+    });
+  }
+
+  dismissModal() {
+    this.setState({
+        modalShow: false,
+        modalChildren: null
+    });
   }
 
   findNearestSpacing() {
@@ -134,6 +153,9 @@ class App extends Component {
 
     return (
         <AppContainer>
+            {this.state.modalShow && this.state.modalChildren ? (
+                <Modal onDismiss={this.dismissModal}>{this.state.modalChildren}</Modal>
+            ) : null}
             <Toolbar 
                 data={this.filteredData} 
                 onFileChange={this.onFileChange} 
