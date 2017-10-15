@@ -3,7 +3,7 @@ const postcss = require("postcss");
 const getVariables = postcss.plugin('getVariables', function (options) {
     
     return function (css) {
-        options = options || {};
+        options = options || {additionalImports: []};
         const decls = [];
 
         css.walkDecls(function (decl) {
@@ -17,6 +17,10 @@ const getVariables = postcss.plugin('getVariables', function (options) {
         css.removeAll();
         css.append(postcss.atRule({ name: `import "node_modules/@unumux/theme-coloniallife-default/styles"` }));
         css.append(postcss.atRule({ name: `import "node_modules/@unumux/willow/styles"` }));
+
+        options.additionalImports.forEach((file) => {
+            css.append(postcss.atRule({ name: `import "${file}"` }));
+        });
 
         const rule = postcss.rule({ selector: ".output-variables" });
         

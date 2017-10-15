@@ -15,11 +15,11 @@ const FILES = glob.sync(BASE_PATH + "/**/*.scss");
 
 const CONVERT_REM_TO_PX = true;
 
-export async function generate() {
-    const processedFiles = await Promise.all(FILES.map(async (FILE) => {
+export async function generate(additionalFiles = []) {
+    const processedFiles = await Promise.all([...FILES, ...additionalFiles].map(async (FILE) => {
         const scss = fs.readFileSync(FILE);
         
-        const variablesScss = await postcss(getVariables).process(scss, { syntax: syntax });
+        const variablesScss = await postcss(getVariables({additionalImports: additionalFiles})).process(scss, { syntax: syntax });
         const variablesCss = await compileSass(variablesScss);
         const out = await convertToJson(variablesCss);
         return {
