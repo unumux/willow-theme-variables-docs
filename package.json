@@ -1,0 +1,32 @@
+{
+  "name": "sass-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node generate/index.js",
+    "serve": "http-server ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@unumux/theme-coloniallife-default": "^0.6.0",
+    "@unumux/willow": "^0.3.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "glob": "^7.1.2",
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^7.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "http-server": "^0.10.0",
+    "postcss": "^6.0.13",
+    "postcss-scss": "^1.0.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "rimraf": "^2.6.2",
+    "willow": "^0.0.1"
+  }
+}
