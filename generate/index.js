@@ -10,9 +10,8 @@ import {App} from "./client/App";
 
 async function main() {
     const data = await generate();
-    const reactData = renderToString(<App data={data} />);
 
-    fs.writeFileSync("./index.html", reactData);
+    fs.writeFileSync("./src/data/theme-coloniallife-default.json", JSON.stringify(data));
 }
 
 
